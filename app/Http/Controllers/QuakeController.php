@@ -10,7 +10,7 @@ use App\Mail\notifyEarthquakeToUser;
 use App\Repositories\quakeRepository;
 use Symfony\Component\HttpFoundation\Response;
 
-class quakeController extends Controller
+class QuakeController extends Controller
 {
 	public $quakeService;
     public $quakeRepository;

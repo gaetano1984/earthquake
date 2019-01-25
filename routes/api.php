@@ -18,6 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix' => 'quake'], function(){
-	Route::get('list', 'quakecontroller@apiList');
-	Route::post('search', 'quakeController@apiSearch');
+	Route::get('list', 'QuakeController@apiList');
+	Route::post('search', 'QuakeController@apiSearch');
 });

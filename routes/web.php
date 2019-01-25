@@ -17,10 +17,10 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'quake'], function(){
-	Route::get('update', 'quakeController@update');
+	Route::get('update', 'QuakeController@update');
 	Route::group(['middleware' => 'auth'], function(){
-		Route::get('list', 'quakeController@list')->name('quake_list');	
-		Route::get('stats', 'quakeController@stats')->name('quake_stats');
+		Route::get('list', 'QuakeController@list')->name('quake_list');	
+		Route::get('stats', 'QuakeController@stats')->name('quake_stats');
 	});
 
 });
