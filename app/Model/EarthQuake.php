@@ -4,7 +4,7 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class earthQuake extends Model
+class EarthQuake extends Model
 {
     //
     protected $table = 'earthquake';
