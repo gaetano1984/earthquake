@@ -58,12 +58,12 @@
 	        $quakes = json_decode(json_encode($quakes),TRUE);
 
 	        foreach($quakes['eventParameters']['event'] as $quake){
-	        	$idevent = $quake['preferredOriginID'];
+	        	$idevent = trim($quake['preferredOriginID']);
 	        	$time = $quake['creationInfo']['creationTime'];
 	        	$location = $quake['description']['text'];
 	        	$magnitude = $quake['magnitude']['mag']['value'];
-	        	$latitude = $quake['origin']['latitude']['value'];
-	        	$longitude = $quake['origin']['longitude']['value'];
+	        	$latitude = trim($quake['origin']['latitude']['value']);
+	        	$longitude = trim($quake['origin']['longitude']['value']);
 	        	$q = $this->quakeRepository->find($idevent);
 	        	$q = $q->toArray();
 	        	if(!$q){
