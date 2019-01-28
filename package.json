@@ -1,0 +1,32 @@
+{
+  "name": "laravel-quake",
+  "version": "1.0.0",
+  "description": "package that retrieve quake info from INGV server",
+  "main": "webpack.mix.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gaetano1984/laravel-quake.git"
+  },
+  "keywords": [
+    "laravel",
+    "quake"
+  ],
+  "author": "gaetano campanella <gaecamp@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gaetano1984/laravel-quake/issues"
+  },
+  "homepage": "https://github.com/gaetano1984/laravel-quake#readme",
+  "engines": {
+    "node": "v8.9.4"
+  },
+  "dependencies":{
+    "bootstrap": "4.2.1"
+  }
+}
