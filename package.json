@@ -29,6 +29,8 @@
     "node": "v8.9.4"
   },
   "dependencies":{
-    "bootstrap": "4.2.1"
+    "bootstrap": "4.2.1",
+    "jquery": "1.9.1",
+    "popper.js": "^1.14.6"
   }
 }
