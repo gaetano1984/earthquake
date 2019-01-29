@@ -54,6 +54,8 @@ class QuakeController extends Controller
         $arr_magnitude = collect($data)->pluck('magnitude')->toArray();
         $arr_count_b = collect($data)->pluck('tot')->toArray();
 
+        $arr_magnitude = array_sort($arr_magnitude);
+
         $user = \Auth::user();
         return view('earthquake.stats', compact('user', 'arr_date', 'arr_count', 'arr_magnitude', 'arr_count_b'));
     }
