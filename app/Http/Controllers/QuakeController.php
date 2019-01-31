@@ -26,7 +26,11 @@ class QuakeController extends Controller
 
     public function list(){
         $user = \Auth::user()->toArray();
-        $res = $this->quakeService->recent();
+
+        $offset=1;
+        $limit=5;
+
+        $res = $this->quakeService->paginateRecent($limit, $offset);
         $obj = compact('user', 'res');
         return view('earthquake.list')->with(compact('user', 'res'));
     }

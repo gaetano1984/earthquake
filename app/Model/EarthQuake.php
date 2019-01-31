@@ -11,6 +11,10 @@ class EarthQuake extends Model
 
     public $timestamps = FALSE;
 
+    public function paginateRecent($limit=10, $offset=0){
+        return \DB::table('earthquake')->paginate($limit);
+    }
+
     public function scopeRecent(){
     	return \DB::table('earthquake')->limit(10)->orderBy('creationTime', 'desc')->get()->toArray();
     }
