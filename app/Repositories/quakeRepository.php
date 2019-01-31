@@ -40,7 +40,7 @@
 			return $q;
 		}
 		public function statsNumber(){
-			$res = Earthquake::select([\DB::raw('date("creationTime") as data, count(*) as tot')])->groupBy(DB::raw('date("creationTime")'))->get();
+			$res = Earthquake::select([\DB::raw('date("creationTime") as data, count(*) as tot')])->groupBy(DB::raw('date("creationTime")'))->orderBy(\DB::raw('date("creationTime")', 'asc'))->get();
 			$res = $res->toArray();
 			return $res;
 		}
