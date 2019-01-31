@@ -46,8 +46,6 @@ class QuakeController extends Controller
     public function stats(){
         $data = $this->quakeService->statsNumber();
 
-        dd($data);
-
         $arr_date = collect($data)->pluck('data')->toArray();
         $arr_count = collect($data)->pluck('tot')->toArray();
 

@@ -45,7 +45,7 @@
 			return $res;
 		}
 		public function statsMagnitude(){
-			$res = Earthquake::select(\DB::raw('magnitude, count(*) as tot'))->groupBy('magnitude')->get();
+			$res = Earthquake::select(\DB::raw('magnitude, count(*) as tot'))->groupBy('magnitude')->orderBy(\DB::raw('magnitude', 'asc'))->get();
 			$res = $res->toArray();
 			return $res;
 		}
