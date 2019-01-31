@@ -12,7 +12,7 @@ class EarthQuake extends Model
     public $timestamps = FALSE;
 
     public function paginateRecent($limit=10){
-        return \DB::table('earthquake')->paginate($limit);
+        return \DB::table('earthquake')->orderBy('creationTime', 'desc')->paginate($limit);
     }
 
     public function scopeRecent(){
