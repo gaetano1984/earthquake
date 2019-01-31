@@ -24,15 +24,11 @@ class QuakeController extends Controller
     	$res = $this->quakeService->update();
     }
 
-    public function list(){
+    public function list(Request $request, $limit=10){
         $user = \Auth::user()->toArray();
-
-        $offset=1;
-        $limit=5;
-
-        $res = $this->quakeService->paginateRecent($limit, $offset);
+        $res = $this->quakeService->paginateRecent($limit);
         $obj = compact('user', 'res');
-        return view('earthquake.list')->with(compact('user', 'res'));
+        return view('earthquake.list')->with(compact('user', 'res', 'limit'));
     }
 
     public function apiList(){
@@ -57,9 +53,6 @@ class QuakeController extends Controller
 
         $arr_magnitude = collect($data)->pluck('magnitude')->toArray();
         $arr_count_b = collect($data)->pluck('tot')->toArray();
-
-        // $arr_date = array_sort($arr_date);
-        // $arr_magnitude = array_sort($arr_magnitude);
 
         $user = \Auth::user();
         return view('earthquake.stats', compact('user', 'arr_date', 'arr_count', 'arr_magnitude', 'arr_count_b'));

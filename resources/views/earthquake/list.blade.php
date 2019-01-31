@@ -6,6 +6,16 @@
 			<table class="table table-striped" border=1>
 				<thead>
 					<tr>
+						<td colspan=3>&nbsp;</td>
+						<td>
+							<select class="form-control" id="limit" name="limit">
+								<option @if($limit==5)  selected @endif>5</option>
+								<option @if($limit==10) selected @endif>10</option>
+								<option @if($limit==20) selected @endif>20</option>
+							</select>			
+						</td>
+					</tr>
+					<tr>
 						<th>
 							{{__('earthquake.list.header.quake_id')}}
 						</th>
@@ -46,4 +56,13 @@
 			</div>
 		</div>
 	</div>
+@endsection
+
+@section('extrascripts')
+<script type="text/javascript">
+	$('#limit').on('change', function(){
+		limit = $(this).val();
+		window.location.href = "{{route('quake_list')}}/"+limit;
+	});
+</script>
 @endsection

@@ -32,8 +32,8 @@
 			$q = $this->earthQuake->recent();
 			return $q;
 		}
-		public function paginateRecent($limit=10, $offset=0){
-			$q = $this->earthQuake->paginateRecent($limit, $offset);
+		public function paginateRecent($limit=10){
+			$q = $this->earthQuake->paginateRecent($limit);
 			return $q;
 		}
 		public function notified($idevent){

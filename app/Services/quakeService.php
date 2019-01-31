@@ -92,8 +92,8 @@
 			return $quake;
 		}
 
-		public function paginateRecent($limit=10, $offset=0){
-			$quake = $this->quakeRepository->paginateRecent($limit, $offset);
+		public function paginateRecent($limit=10){
+			$quake = $this->quakeRepository->paginateRecent($limit);
 			return $quake;
 		}
 
