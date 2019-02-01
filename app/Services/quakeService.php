@@ -99,8 +99,8 @@
 
 		public function search($min=1, $max=9){
 			$filter = [
-				['magnitude', '>=', $min]
-				,['magnitude', '<=', $max]
+				'min_magnitude' => $min
+				,'max_magnitude' => $max
 			];
 			$quake = $this->quakeRepository->search($filter);
 			return $quake;
