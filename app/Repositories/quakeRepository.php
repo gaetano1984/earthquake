@@ -11,7 +11,7 @@
 			$this->earthQuake = $e;
 		}
 		public function find($id_earthquake){
-			$q = Earthquake::where('id_earthquake', $id_earthquake)->get();
+			$q = EarthQuake::where('id_earthquake', $id_earthquake)->get();
 			return $q;
 		}
 		public function findAll($id_earthquake){
@@ -19,7 +19,7 @@
 			return $q;
 		}
 		public function create($idevent, $time, $location, $magnitude, $latitude, $longitude){
-			$e = new Earthquake();
+			$e = new EarthQuake();
 			$e->id_earthquake = $idevent;
 			$e->creationTime = $time;
 			$e->location = $location;
@@ -40,16 +40,16 @@
 			$this->earthQuake->notified($idevent);
 		}
 		public function search($filter){
-			$q = Earthquake::where($filter)->get();
+			$q = EarthQuake::where($filter)->get();
 			return $q;
 		}
 		public function statsNumber(){
-			$res = Earthquake::select([\DB::raw('date("creationTime") as data, count(*) as tot')])->groupBy(DB::raw('date("creationTime")'))->orderBy(\DB::raw('date("creationTime")', 'asc'))->get();
+			$res = EarthQuake::select([\DB::raw('date("creationTime") as data, count(*) as tot')])->groupBy(DB::raw('date("creationTime")'))->orderBy(\DB::raw('date("creationTime")', 'asc'))->get();
 			$res = $res->toArray();
 			return $res;
 		}
 		public function statsMagnitude(){
-			$res = Earthquake::select(\DB::raw('magnitude, count(*) as tot'))->groupBy('magnitude')->orderBy(\DB::raw('magnitude', 'asc'))->get();
+			$res = EarthQuake::select(\DB::raw('magnitude, count(*) as tot'))->groupBy('magnitude')->orderBy(\DB::raw('magnitude', 'asc'))->get();
 			$res = $res->toArray();
 			return $res;
 		}
