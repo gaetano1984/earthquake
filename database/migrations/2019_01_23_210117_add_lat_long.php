@@ -15,8 +15,8 @@ class AddLatLong extends Migration
     {
         //
         Schema::table('earthquake', function(Blueprint $schema){
-            $schema->char('latitude', 255)->nullable();
-            $schema->char('longitude', 255)->nullable();
+            $schema->text('latitude', 10)->nullable();
+            $schema->text('longitude', 10)->nullable();
         });
     }
 
