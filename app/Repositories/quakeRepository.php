@@ -40,7 +40,20 @@
 			$this->earthQuake->notified($idevent);
 		}
 		public function search($filter){
-			$q = Earthquake::where('magnitude', '>=', intval($filter['min_magnitude']))->where('magnitude', '<=', intval($filter['max_magnitude']))->get();
+			$min = intval($filter['min_magnitude']);
+			$max = intval($filter['max_magnitude']);
+			if($min && $max){
+				$q = $this->earthQuake::where('magnitude', '>=', $min)->where('magnitude', '<=', $max);
+			}
+			else{
+				if($min){
+					$q = $this->earthQuake::where('magnitude', '>=', $min);
+				}
+				if($max){
+					$q = $this->earthQuake::where('magnitude', '<=', $max);
+				}
+			}
+			$q = $q->get()->toArray();
 			return $q;
 		}
 		public function statsNumber(){
