@@ -40,7 +40,7 @@ class QuakeController extends Controller
         $min = $request->get('min');
         $max = $request->get('max');
         $res = $this->quakeService->search($min, $max);
-        return $res->toArray();
+        return response()->json($res);
     }
 
     public function stats(){
