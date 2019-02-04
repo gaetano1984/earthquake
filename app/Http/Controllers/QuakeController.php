@@ -39,6 +39,17 @@ class QuakeController extends Controller
     public function apiSearch(Request $request){
         $min = $request->get('min');
         $max = $request->get('max');
+
+        $this->validate($request, [
+            'min' => 'required|numeric'
+            ,'max' => 'required|numeric'
+        ], [
+            'min.required' => __('earthquake.validation.min.required')
+            ,'min.numeric' => __('earthquake.validation.min.numeric')
+            ,'max.required' => __('earthquake.validation.max.required')
+            ,'max.numeric' => __('earthquake.validation.max.numeric')             
+        ]);
+
         $res = $this->quakeService->search($min, $max);
         return response()->json($res);
     }

@@ -13,6 +13,16 @@
 				,'creationTime' => 'Data Evento'
 				,'magnitude' => 'Magnitudo'
 			]
+		],
+		'validation' => [
+			'min' => [
+				'required' => 'Il campo magnitudo minima è obbligatorio'
+				,'numeric' => 'Il campo magnitudo minima deve essere numerico'
+			]
+			,'max' => [
+				'required' => 'Il campo magnitudo massima è obbligatorio'
+				,'numeric' => 'Il campo magnitudo massima deve essere numerico'
+			]
 		]
 	];
 
