@@ -42,6 +42,7 @@
 		public function search($filter){
 			$min = intval($filter['min_magnitude']);
 			$max = intval($filter['max_magnitude']);
+			$q;
 			if($min && $max){
 				$q = $this->earthQuake::where('magnitude', '>=', $min)->where('magnitude', '<=', $max);
 			}
