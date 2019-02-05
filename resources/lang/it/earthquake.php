@@ -23,6 +23,12 @@
 				'required' => 'Il campo magnitudo massima è obbligatorio'
 				,'numeric' => 'Il campo magnitudo massima deve essere numerico'
 			]
+		],
+		'filters' => [
+			'min_magnitude' => 'Magnitudo Minima'
+			,'max_magnitude' => 'Magnitudo Massima'
+			,'start_date' => 'Data Inizio'
+			,'end_date' => 'Data Fine'
 		]
 	];
 

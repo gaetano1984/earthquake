@@ -106,8 +106,8 @@
 			return $quake;
 		}
 
-		public function statsNumber(){
-			$data = $this->quakeRepository->statsNumber();
+		public function statsNumber($filter = []){
+			$data = $this->quakeRepository->statsNumber($filter);
 			return $data;
 		}
 

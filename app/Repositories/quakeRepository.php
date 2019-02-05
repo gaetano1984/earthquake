@@ -39,45 +39,44 @@
 		public function notified($idevent){
 			$this->earthQuake->notified($idevent);
 		}
-		public function search($filter){
-			$min = intval($filter['min_magnitude']);
-			$max = intval($filter['max_magnitude']);
-			$q;
-			
-			if($min && $max){
-                            $q = $this->earthQuake::whereBetween('magnitude', [$min, $max]);
-			}
-			if($min){
-                            $q = $this->earthQuake::where('magnitude', '>=', $min);    
-			}
-			if($max){
-                            $q = $this->earthQuake::where('magnitude', '<=', $max);
-			}
-                        return $q->get();
-		}
-                public function statsNumber(){
-                    switch(env('DB_CONNECTION')){
-                        case 'mysql':
-                            $res = EarthQuake::select([\DB::raw('date_format(creationTime, "%Y-%m-%d") as data, count(*) as tot')])->groupBy(\DB::raw('date_format(creationTime, "%Y-%m-%d")'))->orderBy(\DB::raw('date_format(creationTime, "%Y-%m-%d")', 'asc'))->get();
-                        break;
-                        case 'pgsql':
-                            $res = EarthQuake::select([\DB::raw('date("creationTime") as data, count(*) as tot')])->groupBy(DB::raw('date("creationTime")'))->orderBy(\DB::raw('date("creationTime")', 'asc'))->get();
-                        break;
+		public function statsNumber($filter = []){
+            switch(env('DB_CONNECTION')){
+                case 'mysql':
+                    $res = EarthQuake::
+                    		select([\DB::raw('date_format(creationTime, "%Y-%m-%d") as data, count(*) as tot')]);
+                    if(array_key_exists('min_date', $filter)){
+                		$res = $res->whereBetween('creationTime', [$filter['min_date'], $filter['max_date']]);
                     }
-                    $res = $res->toArray();
-                    return $res;
-                }
-
-		/*public function statsNumber(){
-			$res = EarthQuake::select([\DB::raw('date("creationTime") as data, count(*) as tot')])->groupBy(DB::raw('date("creationTime")'))->orderBy(\DB::raw('date("creationTime")', 'asc'))->get();
-			$res = $res->toArray();
-			return $res;
-		}*/
+            		$res = $res->groupBy(\DB::raw('date_format(creationTime, "%Y-%m-%d")'))->orderBy(\DB::raw('date_format(creationTime, "%Y-%m-%d")', 'asc'))->get();
+                break;
+                case 'pgsql':
+                    $res = EarthQuake::select([\DB::raw('date("creationTime") as data, count(*) as tot')])->groupBy(DB::raw('date("creationTime")'))->orderBy(\DB::raw('date("creationTime")', 'asc'))->get();
+                break;
+            }
+            $res = $res->toArray();
+            return $res;
+        }
 		public function statsMagnitude(){
 			$res = EarthQuake::select(\DB::raw('magnitude, count(*) as tot'))->groupBy('magnitude')->orderBy(\DB::raw('magnitude', 'asc'))->get();
 			$res = $res->toArray();
 			return $res;
 		}
+		public function search($filter){
+			$min = intval($filter['min_magnitude']);
+			$max = intval($filter['max_magnitude']);
+			$q;
+			if($min && $max){
+                $q = $this->earthQuake::whereBetween('magnitude', [$min, $max]);
+			}
+			if($min){
+                $q = $this->earthQuake::where('magnitude', '>=', $min);    
+			}
+			if($max){
+                $q = $this->earthQuake::where('magnitude', '<=', $max);
+			}
+            return $q->get();
+		}
+        
 	}
 
  ?>

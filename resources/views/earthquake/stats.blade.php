@@ -3,6 +3,21 @@
 @section('body')
 	<div class="container" style="margin-top: 80px; max-width: 1800px;">
 		<div class="row">
+			<div class="col-md-12">
+				<form class="form-inline" method="POST">
+					@include('earthquake.filters.min_magnitude')	
+					@include('earthquake.filters.max_magnitude')
+					@include('earthquake.filters.min_date')
+					@include('earthquake.filters.max_date')	
+					@include('earthquake.filters.search')
+				    {{ csrf_field() }}
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			&nbsp;
+		</div>
+		<div class="row">
 			<div class="col-md-6">
 				<canvas id="canvas"></canvas>
 			</div>

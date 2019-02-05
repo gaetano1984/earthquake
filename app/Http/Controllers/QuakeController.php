@@ -54,8 +54,12 @@ class QuakeController extends Controller
         return response()->json($res);
     }
 
-    public function stats(){
-        $data = $this->quakeService->statsNumber();
+    public function stats(Request $request){
+        $filter = [
+            'min_date' => $request->has('min_date') ? $request->get('min_date') : date('Y-m-d', strtotime('-10 days'))
+            ,'max_date' => $request->has('max_date') ? $request->get('max_date') : date('Y-m-d')
+        ];
+        $data = $this->quakeService->statsNumber($filter);
 
         $arr_date = collect($data)->pluck('data')->toArray();
         $arr_count = collect($data)->pluck('tot')->toArray();
