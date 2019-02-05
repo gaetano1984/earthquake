@@ -50,7 +50,12 @@
             		$res = $res->groupBy(\DB::raw('date_format(creationTime, "%Y-%m-%d")'))->orderBy(\DB::raw('date_format(creationTime, "%Y-%m-%d")', 'asc'))->get();
                 break;
                 case 'pgsql':
-                    $res = EarthQuake::select([\DB::raw('date("creationTime") as data, count(*) as tot')])->groupBy(DB::raw('date("creationTime")'))->orderBy(\DB::raw('date("creationTime")', 'asc'))->get();
+                    $res = EarthQuake::
+                    	select([\DB::raw('date("creationTime") as data, count(*) as tot')]);
+                    if(array_key_exists('min_date', $filter)){
+                		$res = $res->whereBetween('creationTime', [$filter['min_date'], $filter['max_date']]);
+                    }
+                    $res = $res->groupBy(DB::raw('date("creationTime")'))->orderBy(\DB::raw('date("creationTime")', 'asc'))->get();
                 break;
             }
             $res = $res->toArray();
