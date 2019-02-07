@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Services\quakeService;
 use App\Mail\notifyEarthquakeToUser;
 use App\Repositories\quakeRepository;
+use App\Http\Requests\searchEarthQuake;
 use Symfony\Component\HttpFoundation\Response;
 
 class QuakeController extends Controller
@@ -54,12 +55,28 @@ class QuakeController extends Controller
         return response()->json($res);
     }
 
-    public function stats(Request $request){
-        $filter = [
-            'min_date' => $request->has('min_date') ? $request->get('min_date') : date('Y-m-d', strtotime('-10 days'))
-            ,'max_date' => $request->has('max_date') ? $request->get('max_date') : date('Y-m-d')
-        ];
+    public function statsFiltered(searchEarthQuake $request){
+        $user = \Auth::user();
+        $min_date = $request->get('min_date');
+        $max_date = $request->get('max_date');
+
+        $filter = ['min_date' => $min_date, 'max_date' => $max_date];
+
         $data = $this->quakeService->statsNumber($filter);
+
+        $arr_date = collect($data)->pluck('data')->toArray();
+        $arr_count = collect($data)->pluck('tot')->toArray();
+
+        $data = $this->quakeService->statsMagnitude($filter);
+
+        $arr_magnitude = collect($data)->pluck('magnitude')->toArray();
+        $arr_count_b = collect($data)->pluck('tot')->toArray();
+
+        return view('earthquake.stats', compact('user', 'min_date', 'max_date', 'arr_date', 'arr_count', 'arr_magnitude', 'arr_count_b'));
+    }
+
+    public function stats(Request $request){
+        $data = $this->quakeService->statsNumber();
 
         $arr_date = collect($data)->pluck('data')->toArray();
         $arr_count = collect($data)->pluck('tot')->toArray();
@@ -70,6 +87,9 @@ class QuakeController extends Controller
         $arr_count_b = collect($data)->pluck('tot')->toArray();
 
         $user = \Auth::user();
-        return view('earthquake.stats', compact('user', 'arr_date', 'arr_count', 'arr_magnitude', 'arr_count_b'));
+
+        $min_date = null;
+        $max_date = null;
+        return view('earthquake.stats', compact('user', 'arr_date', 'arr_count', 'arr_magnitude', 'arr_count_b', 'min_date', 'max_date'));
     }
 }

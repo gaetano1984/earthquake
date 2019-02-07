@@ -1,5 +1,9 @@
 @extends('layout')
 
+@section('extracss')
+	  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+@endsection
+
 @section('body')
 	<div class="container" style="margin-top: 80px; max-width: 1800px;">
 		<div class="row">
@@ -31,6 +35,7 @@
 @section('extrascripts')
 	<script type="text/javascript" src="https://www.chartjs.org/dist/2.7.3/Chart.bundle.js"></script>
 	<script type="text/javascript" src="https://www.chartjs.org/samples/latest/utils.js"></script>
+	  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script type="text/javascript">
 		var config = {
 			type: 'line',
@@ -65,5 +70,13 @@
 			var ctx_b = document.getElementById('canvas_b').getContext('2d');
 			window.myLine = new Chart(ctx_b, config_b);
 		};
+
+		$('#min_date').datepicker({
+			dateFormat: 'yy-mm-dd'
+		});
+		$('#max_date').datepicker({
+			dateFormat: 'yy-mm-dd'
+		});
+
 	</script>
 @endsection

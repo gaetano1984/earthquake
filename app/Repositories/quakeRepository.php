@@ -44,25 +44,38 @@
                 case 'mysql':
                     $res = EarthQuake::
                     		select([\DB::raw('date_format(creationTime, "%Y-%m-%d") as data, count(*) as tot')]);
-                    if(array_key_exists('min_date', $filter)){
-                		$res = $res->whereBetween('creationTime', [$filter['min_date'], $filter['max_date']]);
-                    }
+                    if(array_key_exists('min_date', $filter) && $filter['min_date']!=null){
+						$res = $res->where('creationTime', '>=', $filter['min_date']);
+					}
+					if(array_key_exists('max_date', $filter) && $filter['max_date']!=null){
+						$res = $res->where('creationTime', '<=', $filter['max_date']);
+					}
             		$res = $res->groupBy(\DB::raw('date_format(creationTime, "%Y-%m-%d")'))->orderBy(\DB::raw('date_format(creationTime, "%Y-%m-%d")', 'asc'))->get();
                 break;
                 case 'pgsql':
                     $res = EarthQuake::
                     	select([\DB::raw('date("creationTime") as data, count(*) as tot')]);
-                    if(array_key_exists('min_date', $filter)){
-                		$res = $res->whereBetween('creationTime', [$filter['min_date'], $filter['max_date']]);
-                    }
+                    if(array_key_exists('min_date', $filter) && $filter['min_date']!=null){
+						$res = $res->where('creationTime', '>=', $filter['min_date']);
+					}
+					if(array_key_exists('max_date', $filter) && $filter['max_date']!=null){
+						$res = $res->where('creationTime', '<=', $filter['max_date']);
+					}
                     $res = $res->groupBy(DB::raw('date("creationTime")'))->orderBy(\DB::raw('date("creationTime")', 'asc'))->get();
                 break;
             }
             $res = $res->toArray();
             return $res;
         }
-		public function statsMagnitude(){
-			$res = EarthQuake::select(\DB::raw('magnitude, count(*) as tot'))->groupBy('magnitude')->orderBy(\DB::raw('magnitude', 'asc'))->get();
+		public function statsMagnitude($filter = []){
+			$res = EarthQuake::select(\DB::raw('magnitude, count(*) as tot'));
+			if(array_key_exists('min_date', $filter) && $filter['min_date']!=null){
+				$res = $res->where('creationTime', '>=', $filter['min_date']);
+			}
+			if(array_key_exists('max_date', $filter) && $filter['max_date']!=null){
+				$res = $res->where('creationTime', '<=', $filter['max_date']);
+			}
+			$res = $res->groupBy('magnitude')->orderBy(\DB::raw('magnitude', 'asc'))->get();
 			$res = $res->toArray();
 			return $res;
 		}

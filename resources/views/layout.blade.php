@@ -10,6 +10,7 @@
 			color: red;
 		}
 	</style>
+	@yield('extracss')
 </head>
 <body>
 	@include('menu')

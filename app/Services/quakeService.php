@@ -111,8 +111,8 @@
 			return $data;
 		}
 
-		public function statsMagnitude(){
-			$data = $this->quakeRepository->statsMagnitude();
+		public function statsMagnitude($filter = []){
+			$data = $this->quakeRepository->statsMagnitude($filter);
 			return $data;
 		}
 	}
