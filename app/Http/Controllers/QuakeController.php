@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use App\Services\quakeService;
 use App\Mail\notifyEarthquakeToUser;
 use App\Repositories\quakeRepository;
-use App\Http\Requests\searchEarthQuake;
 use Symfony\Component\HttpFoundation\Response;
 
 class QuakeController extends Controller
@@ -55,7 +54,7 @@ class QuakeController extends Controller
         return response()->json($res);
     }
 
-    public function statsFiltered(searchEarthQuake $request){
+    public function statsFiltered(Request $request){
         $user = \Auth::user();
         $min_date = $request->get('min_date');
         $max_date = $request->get('max_date');
