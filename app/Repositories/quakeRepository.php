@@ -50,7 +50,7 @@
 					if(array_key_exists('max_date', $filter) && $filter['max_date']!=null){
 						$res = $res->where('creationTime', '<=', $filter['max_date']);
 					}
-            		$res = $res->groupBy(\DB::raw('date_format(creationTime, "%Y-%m-%d")'))->orderBy(\DB::raw('date_format(creationTime, "%Y-%m-%d")', 'asc'))->get();
+            		$res = $res->groupBy(\DB::raw('date_format(creationTime, "%Y-%m-%d")'))->orderBy(\DB::raw('date_format(creationTime, "%Y-%m-%d")', 'asc'));
                 break;
                 case 'pgsql':
                     $res = EarthQuake::
@@ -61,10 +61,16 @@
 					if(array_key_exists('max_date', $filter) && $filter['max_date']!=null){
 						$res = $res->where('creationTime', '<=', $filter['max_date']);
 					}
-                    $res = $res->groupBy(DB::raw('date("creationTime")'))->orderBy(\DB::raw('date("creationTime")', 'asc'))->get();
+                    $res = $res->groupBy(DB::raw('date("creationTime")'))->orderBy(\DB::raw('date("creationTime")', 'asc'));
                 break;
             }
-            $res = $res->toArray();
+            if(array_key_exists('mag_min', $filter) && $filter['mag_min']!=null){
+            	$res = $res->where('magnitude', '>=', $filter['mag_min']);
+            }
+            if(array_key_exists('mag_max', $filter) && $filter['mag_max']!=null){
+            	$res = $res->where('magnitude', '<=', $filter['mag_max']);
+            }
+            $res = $res->get()->toArray();
             return $res;
         }
 		public function statsMagnitude($filter = []){
@@ -75,6 +81,12 @@
 			if(array_key_exists('max_date', $filter) && $filter['max_date']!=null){
 				$res = $res->where('creationTime', '<=', $filter['max_date']);
 			}
+			if(array_key_exists('mag_min', $filter) && $filter['mag_min']!=null){
+            	$res = $res->where('magnitude', '>=', $filter['mag_min']);
+            }
+            if(array_key_exists('mag_max', $filter) && $filter['mag_max']!=null){
+            	$res = $res->where('magnitude', '<=', $filter['mag_max']);
+            }
 			$res = $res->groupBy('magnitude')->orderBy(\DB::raw('magnitude', 'asc'))->get();
 			$res = $res->toArray();
 			return $res;
