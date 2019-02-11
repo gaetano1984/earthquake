@@ -12,8 +12,8 @@
 */
 Auth::routes();
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['middleware' => 'auth'], function(){
+	Route::get('/', 'QuakeController@list');
 });
 
 Route::group(['prefix' => 'quake'], function(){
