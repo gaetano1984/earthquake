@@ -14,19 +14,15 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function(){
 	Route::get('/', 'QuakeController@list');
+	Route::get('user_profile', 'UserController@profile')->name('user_profile');
+	Route::post('update_profile', 'UserController@updateProfile')->name('update_profile');
+	Route::group(['prefix' => 'quake'], function(){
+		Route::get('list/{limit?}', 'QuakeController@list')->name('quake_list');
+		Route::get('stats', 'QuakeController@stats')->name('quake_stats');
+		Route::post('stats', 'QuakeController@statsFiltered')->name('quake_stats_post');
+	});
 });
 
 Route::group(['prefix' => 'quake'], function(){
 	Route::get('update', 'QuakeController@update');
-	Route::group(['middleware' => 'auth'], function(){
-		Route::get('list/{limit?}', 'QuakeController@list')->name('quake_list');	
-		Route::get('stats', 'QuakeController@stats')->name('quake_stats');
-		Route::post('stats', 'QuakeController@statsFiltered')->name('quake_stats_post');
-	});
-
-});
-
-Route::group(['middleware' => 'auth'], function(){
-	Route::get('user_profile', 'UserController@profile')->name('user_profile');
-	Route::post('update_profile', 'UserController@updateProfile')->name('update_profile');
 });
