@@ -1,4 +1,4 @@
-<div class="col-md-2">
+<div class="col-md-3">
 	<div class="form-group">
 		<label class="label-control col-md-6">
 			{{__('earthquake.filters.start_date')}}
