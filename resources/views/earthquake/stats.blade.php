@@ -49,7 +49,7 @@
 						scales:{
 							yAxes: [{
 								ticks:{
-									beginatZero: true
+									beginAtZero: true
 								}
 							}]
 						}
@@ -71,7 +71,7 @@
 						scales:{
 							yAxes: [{
 								ticks:{
-									beginatZero: true
+									beginAtZero: true
 								}
 							}]
 						}
