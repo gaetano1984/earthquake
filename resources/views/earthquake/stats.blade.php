@@ -45,6 +45,15 @@
 					backgroundColor: window.chartColors.red,
 					borderColor: window.chartColors.red,
 					data: {{ json_encode($arr_count) }},
+					options:{
+						scales:{
+							yAxes: [{
+								ticks:{
+									beginatZero: true
+								}
+							}]
+						}
+					},
 					fill: false,
 				}]
 			}
@@ -58,6 +67,15 @@
 					backgroundColor: window.chartColors.red,
 					borderColor: window.chartColors.red,
 					data: {{ json_encode($arr_count_b) }},
+					options:{
+						scales:{
+							yAxes: [{
+								ticks:{
+									beginatZero: true
+								}
+							}]
+						}
+					},
 					fill: false,
 				}]
 			}
