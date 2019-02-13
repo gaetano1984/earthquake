@@ -45,10 +45,10 @@
                     $res = EarthQuake::
                     		select([\DB::raw('date_format(creationTime, "%Y-%m-%d") as data, count(*) as tot')]);
                     if(array_key_exists('min_date', $filter) && $filter['min_date']!=null){
-						$res = $res->where('creationTime', '>=', $filter['min_date']);
+						$res = $res->where('creationTime', '>=', $filter['min_date']." 00:00:00");
 					}
 					if(array_key_exists('max_date', $filter) && $filter['max_date']!=null){
-						$res = $res->where('creationTime', '<=', $filter['max_date']);
+						$res = $res->where('creationTime', '<=', $filter['max_date']." 23:59:59");
 					}
             		$res = $res->groupBy(\DB::raw('date_format(creationTime, "%Y-%m-%d")'))->orderBy(\DB::raw('date_format(creationTime, "%Y-%m-%d")', 'asc'));
                 break;
@@ -56,10 +56,10 @@
                     $res = EarthQuake::
                     	select([\DB::raw('date("creationTime") as data, count(*) as tot')]);
                     if(array_key_exists('min_date', $filter) && $filter['min_date']!=null){
-						$res = $res->where('creationTime', '>=', $filter['min_date']);
+						$res = $res->where('creationTime', '>=', $filter['min_date']." 00:00:00");
 					}
 					if(array_key_exists('max_date', $filter) && $filter['max_date']!=null){
-						$res = $res->where('creationTime', '<=', $filter['max_date']);
+						$res = $res->where('creationTime', '<=', $filter['max_date']." 23:59:59");
 					}
                     $res = $res->groupBy(DB::raw('date("creationTime")'))->orderBy(\DB::raw('date("creationTime")', 'asc'));
                 break;
@@ -76,10 +76,10 @@
 		public function statsMagnitude($filter = []){
 			$res = EarthQuake::select(\DB::raw('magnitude, count(*) as tot'));
 			if(array_key_exists('min_date', $filter) && $filter['min_date']!=null){
-				$res = $res->where('creationTime', '>=', $filter['min_date']);
+				$res = $res->where('creationTime', '>=', $filter['min_date']." 00:00:00");
 			}
 			if(array_key_exists('max_date', $filter) && $filter['max_date']!=null){
-				$res = $res->where('creationTime', '<=', $filter['max_date']);
+				$res = $res->where('creationTime', '<=', $filter['max_date']." 23:59:59");
 			}
 			if(array_key_exists('mag_min', $filter) && $filter['mag_min']!=null){
             	$res = $res->where('magnitude', '>=', $filter['mag_min']);
