@@ -44,19 +44,19 @@
 					label: 'Tot Terremoti',
 					backgroundColor: window.chartColors.red,
 					borderColor: window.chartColors.red,
-					data: {{ json_encode($arr_count) }},
-					options:{
-						scales:{
-							yAxes: [{
-								ticks:{
-									min: 0
-								}
-							}]
-						}
-					},
-					fill: false,
+					data: {{ json_encode($arr_count) }},		
+					fill: false
 				}]
 			}
+			,options:{
+				scales:{
+					yAxes: [{
+						ticks:{
+							min: 0
+						}
+					}]
+				}
+			},
 		};
 		var config_b = {
 			type: 'bar',
@@ -66,19 +66,19 @@
 					label: 'Magnitudo',
 					backgroundColor: window.chartColors.red,
 					borderColor: window.chartColors.red,
-					data: {{ json_encode($arr_count_b) }},
-					options:{
-						scales:{
-							yAxes: [{
-								ticks:{
-									min: 0
-								}
-							}]
-						}
-					},
-					fill: false,
+					data: {{ json_encode($arr_count_b) }},					
+					fill: false
 				}]
 			}
+			,options:{
+				scales:{
+					yAxes: [{
+						ticks:{
+							min: 0
+						}
+					}]
+				}
+			},
 		};
 
 		window.onload = function() {
