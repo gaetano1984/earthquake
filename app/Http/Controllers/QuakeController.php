@@ -76,22 +76,30 @@ class QuakeController extends Controller
     }
 
     public function stats(Request $request){
-        $data = $this->quakeService->statsNumber();
+        $min_date = date('Y-m-d', strtotime('-10 days'));
+        $max_date = date('Y-m-d');
+        $mag_min = 1;
+        $mag_max = 10;
+
+        $filter = [
+            'min_date' => $min_date
+            ,'max_date' => $max_date
+            ,'mag_min' => $mag_min
+            ,'mag_max' => $mag_max
+        ];
+
+        $data = $this->quakeService->statsNumber($filter);
 
         $arr_date = collect($data)->pluck('data')->toArray();
         $arr_count = collect($data)->pluck('tot')->toArray();
 
-        $data = $this->quakeService->statsMagnitude();
+        $data = $this->quakeService->statsMagnitude($filter);
 
         $arr_magnitude = collect($data)->pluck('magnitude')->toArray();
         $arr_count_b = collect($data)->pluck('tot')->toArray();
 
         $user = \Auth::user();
-
-        $min_date = null;
-        $max_date = null;
-        $mag_min = 1;
-        $mag_max = 10;
+        
         return view('earthquake.stats', compact('user', 'arr_date', 'mag_min', 'mag_max', 'arr_count', 'arr_magnitude', 'arr_count_b', 'min_date', 'max_date'));
     }
 }
