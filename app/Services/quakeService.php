@@ -3,16 +3,19 @@
 	namespace App\Services;
 
 	use GuzzleHttp\Client;
-	use App\Repositories\quakeRepository;
 	use App\Model\Earthquake;
 	use App\Services\userService;
+	use App\Services\locationService;
+	use App\Repositories\quakeRepository;
 
 	class quakeService {
 		public $quakeRepository;
 		public $userService;
-		public function __construct(quakeRepository $quakeRepository, userService $userService){
+		public $locationService;
+		public function __construct(quakeRepository $quakeRepository, userService $userService, locationService $locationService){
 			$this->quakeRepository = $quakeRepository;
 			$this->userService = $userService;
+			$this->locationService = $locationService;
 		}
 		public function update(){
 			echo "update in corso\n";
@@ -61,6 +64,13 @@
 	        	$idevent = trim($quake['preferredOriginID']);
 	        	$time = $quake['creationInfo']['creationTime'];
 	        	$location = $quake['description']['text'];
+				
+				$check = preg_match('/[0-9]{1,} km [A-Z]{1,2}/', $location, $match);
+				if(count($match)>0){
+					$new_location = str_replace($match[0], '', $location);
+	        		$this->locationService->create($new_location);	
+				}	        	
+
 	        	$magnitude = $quake['magnitude']['mag']['value'];
 	        	$latitude = trim($quake['origin']['latitude']['value']);
 	        	$longitude = trim($quake['origin']['longitude']['value']);
