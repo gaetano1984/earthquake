@@ -37,7 +37,7 @@
 								{{$e->id_earthquake}}
 							</td>
 							<td>
-								{{$e->location()->get()->toArray()[0]['name']}}
+								{{$e->location}}
 							</td>
 							<td>
 								{{$e->creationTime}}
