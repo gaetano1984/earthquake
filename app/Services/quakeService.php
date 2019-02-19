@@ -76,7 +76,6 @@
 				}
 
 				$new_location = $this->locationService->search($new_location);
-				var_dump($new_location);
 
 	        	$magnitude = $quake['magnitude']['mag']['value'];
 	        	$latitude = trim($quake['origin']['latitude']['value']);
