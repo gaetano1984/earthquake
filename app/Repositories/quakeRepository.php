@@ -18,7 +18,7 @@
 			$q = EarthQuake::whereIn('id_earthquake', $id_earthquake)->get();
 			return $q;
 		}
-		public function create($idevent, $time, $location, $magnitude, $latitude, $longitude){
+		public function create($idevent, $time, $location, $magnitude, $latitude, $longitude, $location_id){
 			$e = new EarthQuake();
 			$e->id_earthquake = $idevent;
 			$e->creationTime = $time;
@@ -26,6 +26,7 @@
 			$e->magnitude = $magnitude;	
 			$e->latitude = $latitude;
 			$e->longitude = $longitude;
+			$e->location_id = $location_id;
 			$e->save();
 		}
 		public function recent(){

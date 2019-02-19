@@ -20,6 +20,11 @@
 			}
 			return $res;
 		}
+
+		public function search($location){
+			$res = $this->locationRepository->search($location)->toArray();
+			return $res;
+		}
 	}
 
 

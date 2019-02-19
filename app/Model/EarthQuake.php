@@ -34,4 +34,8 @@ class EarthQuake extends Model
         $arr = array_keys($arr);
         return $arr;
     }
+
+    public function location(){
+        return $this->hasOne('\App\Model\Location', 'id', 'location_id');
+    }
 }

@@ -64,12 +64,19 @@
 	        	$idevent = trim($quake['preferredOriginID']);
 	        	$time = $quake['creationInfo']['creationTime'];
 	        	$location = $quake['description']['text'];
+	        	$new_location = $location;
 				
 				$check = preg_match('/[0-9]{1,} km [A-Z]{1,2}/', $location, $match);
 				if(count($match)>0){
 					$new_location = str_replace($match[0], '', $location);
 	        		$this->locationService->create($new_location);	
-				}	        	
+				}
+				else{
+					$this->locationService->create($new_location);		
+				}
+
+				$new_location = $this->locationService->search($new_location);
+				var_dump($new_location);
 
 	        	$magnitude = $quake['magnitude']['mag']['value'];
 	        	$latitude = trim($quake['origin']['latitude']['value']);
@@ -77,7 +84,7 @@
 	        	$q = $this->quakeRepository->find($idevent);
 	        	$q = $q->toArray();
 	        	if(!$q){
-	        		$this->quakeRepository->create($idevent, $time, $location, $magnitude, $latitude, $longitude);
+	        		$this->quakeRepository->create($idevent, $time, $location, $magnitude, $latitude, $longitude, $new_location[0]['id']);
 	        		$new_event[$idevent] = $idevent;
 	        		echo "$idevent salvato\n";
 	        		$added++;
