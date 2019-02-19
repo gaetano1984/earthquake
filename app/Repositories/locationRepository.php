@@ -17,7 +17,6 @@
 		public function search($location){
 			$l = new Location();
 			$l = $l->where('name', $location)->get();
-			\Log::info("res query ".print_r($l, 1));
 			return $l;
 		}
 	}
