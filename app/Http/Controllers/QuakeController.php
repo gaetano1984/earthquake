@@ -9,15 +9,18 @@ use App\Services\quakeService;
 use App\Mail\notifyEarthquakeToUser;
 use App\Repositories\quakeRepository;
 use Symfony\Component\HttpFoundation\Response;
+use App\Services\locationService;
 
 class QuakeController extends Controller
 {
 	public $quakeService;
     public $quakeRepository;
+    public $locationService;
 
-	public function __construct(quakeService $quakeService, quakeRepository $quakeRepository){
+	public function __construct(quakeService $quakeService, quakeRepository $quakeRepository, locationService $locationService){
 		$this->quakeService = $quakeService;
         $this->quakeRepository = $quakeRepository;
+        $this->locationService = $locationService;
 	}
 
     public function update(){
@@ -55,13 +58,15 @@ class QuakeController extends Controller
     }
 
     public function statsFiltered(Request $request){
+
         $user = \Auth::user();
         $min_date = $request->get('min_date');
         $max_date = $request->get('max_date');
         $mag_min = $request->get('magnitudo_minima');
         $mag_max = $request->get('magnitudo_massima');
+        $location = $request->get('location');
 
-        $filter = ['min_date' => $min_date, 'max_date' => $max_date, 'mag_min' => $mag_min, 'mag_max' => $mag_max];
+        $filter = ['min_date' => $min_date, 'max_date' => $max_date, 'mag_min' => $mag_min, 'mag_max' => $mag_max, 'location' => $location];
         $data = $this->quakeService->statsNumber($filter);
 
         $arr_date = collect($data)->pluck('data')->toArray();
@@ -72,7 +77,9 @@ class QuakeController extends Controller
         $arr_magnitude = collect($data)->pluck('magnitude')->toArray();
         $arr_count_b = collect($data)->pluck('tot')->toArray();
 
-        return view('earthquake.stats', compact('user', 'min_date', 'max_date', 'mag_min', 'mag_max', 'arr_date', 'arr_count', 'arr_magnitude', 'arr_count_b'));
+        $location = $this->locationService->distLocation();
+
+        return view('earthquake.stats', compact('user', 'min_date', 'max_date', 'mag_min', 'mag_max', 'arr_date', 'arr_count', 'arr_magnitude', 'arr_count_b', 'location'));
     }
 
     public function stats(Request $request){
@@ -99,7 +106,9 @@ class QuakeController extends Controller
         $arr_count_b = collect($data)->pluck('tot')->toArray();
 
         $user = \Auth::user();
+
+        $location = $this->locationService->distLocation();
         
-        return view('earthquake.stats', compact('user', 'arr_date', 'mag_min', 'mag_max', 'arr_count', 'arr_magnitude', 'arr_count_b', 'min_date', 'max_date'));
+        return view('earthquake.stats', compact('user', 'arr_date', 'mag_min', 'mag_max', 'arr_count', 'arr_magnitude', 'arr_count_b', 'min_date', 'max_date', 'location'));
     }
 }

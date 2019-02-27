@@ -37,7 +37,7 @@
 								{{$e->id_earthquake}}
 							</td>
 							<td>
-								{{$e->location}}
+								{{$e->name}}
 							</td>
 							<td>
 								{{$e->creationTime}}

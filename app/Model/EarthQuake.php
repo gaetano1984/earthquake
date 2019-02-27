@@ -12,7 +12,7 @@ class EarthQuake extends Model
     public $timestamps = FALSE;
 
     public function paginateRecent($limit=10){
-        return \DB::table('earthquake')->orderBy('creationTime', 'desc')->paginate($limit);
+        return \DB::table('earthquake')->join('location', 'location_id', '=', 'location.id')->orderBy('creationTime', 'desc')->paginate($limit);
     }
 
     public function scopeRecent(){
@@ -22,17 +22,6 @@ class EarthQuake extends Model
     public function notified($idevents){
     	$data['notified']=1;
 		\DB::table('earthquake')->whereIn('id_earthquake', $idevents)->update($data);
-    }
-
-    public function distLocation(){
-        $arr = [];
-        $e = EarthQuake::distinct('location')->get()->toArray();
-        foreach($e as $event){
-            $location = preg_replace('/^[0-9]{1,} km [A-Z]{1,3} /', '', $event['location']);
-            $arr[$location]=1;
-        }
-        $arr = array_keys($arr);
-        return $arr;
     }
 
     public function location(){

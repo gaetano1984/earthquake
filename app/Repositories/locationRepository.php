@@ -19,6 +19,10 @@
 			$l = $l->where('name', $location)->get();
 			return $l;
 		}
+		public function distLocation(){
+			$l = new Location();
+			return $l->distLocation();	
+		}
 	}
 
  ?>

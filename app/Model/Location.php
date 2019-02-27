@@ -12,4 +12,8 @@ class Location extends Model
 	public $timestamps = FALSE;
 
 	protected $fillable = ['name'];
+
+ 	public function distLocation(){
+        return $this->get()->pluck('name', 'id');
+    }
 }

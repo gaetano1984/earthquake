@@ -1,8 +1,15 @@
 @extends('layout')
 
 @section('extracss')
-	  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-	  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	  	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	  	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css">
+		{{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/i18n/it.js"></script> --}}
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.min.js"></script>
+
+
 @endsection
 
 @section('body')
@@ -13,6 +20,14 @@
 					@include('earthquake.filters.slider')
 					@include('earthquake.filters.min_date')
 					@include('earthquake.filters.max_date')	
+					@include('earthquake.filters.location')
+				</div>
+			</div>
+			<div class="row">
+				&nbsp;
+			</div>
+			<div class="row">
+				<div class="col-md-12">
 					@include('earthquake.filters.search')
 				    {{ csrf_field() }}
 				</form>
@@ -36,6 +51,7 @@
 	<script type="text/javascript" src="https://www.chartjs.org/dist/2.7.3/Chart.bundle.js"></script>
 	<script type="text/javascript" src="https://www.chartjs.org/samples/latest/utils.js"></script>
 	<script type="text/javascript">
+		$('#location').select2();
 		var config = {
 			type: 'line',
 			data: {

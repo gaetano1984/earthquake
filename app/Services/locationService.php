@@ -25,6 +25,11 @@
 			$res = $this->locationRepository->search($location)->toArray();
 			return $res;
 		}
+
+		public function distLocation(){
+			$res = $this->locationRepository->distLocation();
+			return $res;
+		}
 	}
 
 
