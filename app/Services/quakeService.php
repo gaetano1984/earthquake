@@ -60,6 +60,8 @@
 	        $quakes = simplexml_load_string($quakes);
 	        $quakes = json_decode(json_encode($quakes),TRUE);
 
+	        $table = [];
+
 	        foreach($quakes['eventParameters']['event'] as $quake){
 	        	$idevent = trim($quake['preferredOriginID']);
 	        	$time = $quake['creationInfo']['creationTime'];
@@ -87,6 +89,7 @@
 	        		$new_event[$idevent] = $idevent;
 	        		echo "$idevent salvato\n";
 	        		$added++;
+	        		$table[] = [date('Y-m-d', strtotime($time)), $location, $magnitude, $latitude, $longitude];
 	        	}
 	        }
 	        echo "aggiunti $added eventi\n";
@@ -101,6 +104,7 @@
 	        }
 	        echo "update completato\n";
 	        \Log::info("update completato\n");
+	        return $table;
 		}
 
 		public function recent(){

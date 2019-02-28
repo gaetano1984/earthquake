@@ -39,6 +39,8 @@ class updateEarthQuake extends Command
     public function handle(quakeService $quakeService)
     {
         //
-        $quakeService->update();
+        $header = ['Data', 'Luogo', 'magnitudo', 'latitudine', 'longitudine'];
+        $quakes = $quakeService->update();
+        $this->table($header, $quakes);
     }
 }
