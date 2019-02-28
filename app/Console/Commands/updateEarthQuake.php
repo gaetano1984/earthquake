@@ -41,6 +41,8 @@ class updateEarthQuake extends Command
         //
         $header = ['Data', 'Luogo', 'magnitudo', 'latitudine', 'longitudine'];
         $quakes = $quakeService->update();
-        $this->table($header, $quakes);
+        if(count($quakes)>0){
+            $this->table($header, $quakes);    
+        }        
     }
 }
