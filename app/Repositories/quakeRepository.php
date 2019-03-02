@@ -71,7 +71,7 @@
             if(array_key_exists('mag_max', $filter) && $filter['mag_max']!=null){
             	$res = $res->where('magnitude', '<=', $filter['mag_max']);
             }
-            if(array_key_exists('location', $filter) && $filter['location']!=null){
+            if(array_key_exists('location', $filter) && $filter['location']!=null && $filter['location']!="-1"){
             	$res = $res->where('location_id', '=', $filter['location']);
             }
             $res = $res->get()->toArray();
@@ -91,7 +91,7 @@
             if(array_key_exists('mag_max', $filter) && $filter['mag_max']!=null){
             	$res = $res->where('magnitude', '<=', $filter['mag_max']);
             }
-            if(array_key_exists('location', $filter) && $filter['location']!=null){
+            if(array_key_exists('location', $filter) && $filter['location']!=null && $filter['location']!="-1"){
             	$res = $res->where('location_id', '=', $filter['location']);
             }
 			$res = $res->groupBy('magnitude')->orderBy(\DB::raw('magnitude', 'asc'))->get();

@@ -6,10 +6,11 @@ use Mail;
 use App\User;
 use Illuminate\Http\Request;
 use App\Services\quakeService;
+use App\Exports\EarthQuakeExport;
+use App\Services\locationService;
 use App\Mail\notifyEarthquakeToUser;
 use App\Repositories\quakeRepository;
 use Symfony\Component\HttpFoundation\Response;
-use App\Services\locationService;
 
 class QuakeController extends Controller
 {
@@ -64,9 +65,9 @@ class QuakeController extends Controller
         $max_date = $request->get('max_date');
         $mag_min = $request->get('magnitudo_minima');
         $mag_max = $request->get('magnitudo_massima');
-        $location = $request->get('location');
+        $location_id = $request->get('location');
 
-        $filter = ['min_date' => $min_date, 'max_date' => $max_date, 'mag_min' => $mag_min, 'mag_max' => $mag_max, 'location' => $location];
+        $filter = ['min_date' => $min_date, 'max_date' => $max_date, 'mag_min' => $mag_min, 'mag_max' => $mag_max, 'location' => $location_id];
         $data = $this->quakeService->statsNumber($filter);
 
         $arr_date = collect($data)->pluck('data')->toArray();
@@ -79,7 +80,7 @@ class QuakeController extends Controller
 
         $location = $this->locationService->distLocation();
 
-        return view('earthquake.stats', compact('user', 'min_date', 'max_date', 'mag_min', 'mag_max', 'arr_date', 'arr_count', 'arr_magnitude', 'arr_count_b', 'location'));
+        return view('earthquake.stats', compact('user', 'min_date', 'max_date', 'mag_min', 'mag_max', 'arr_date', 'arr_count', 'arr_magnitude', 'arr_count_b', 'location', 'location_id'));
     }
 
     public function stats(Request $request){
@@ -110,5 +111,10 @@ class QuakeController extends Controller
         $location = $this->locationService->distLocation();
         
         return view('earthquake.stats', compact('user', 'arr_date', 'mag_min', 'mag_max', 'arr_count', 'arr_magnitude', 'arr_count_b', 'min_date', 'max_date', 'location'));
+    }
+
+    public function excelExport(Request $request){
+        $filters = $request->all();
+        return (new EarthQuakeExport($filters))->download('earthquake.xlsx');
     }
 }

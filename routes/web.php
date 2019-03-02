@@ -20,6 +20,7 @@ Route::group(['middleware' => 'auth'], function(){
 		Route::get('list/{limit?}', 'QuakeController@list')->name('quake_list');
 		Route::get('stats', 'QuakeController@stats')->name('quake_stats');
 		Route::post('stats', 'QuakeController@statsFiltered')->name('quake_stats_post');
+		Route::post('export', 'QuakeController@excelExport')->name('quake_excel_export');
 	});
 });
 
