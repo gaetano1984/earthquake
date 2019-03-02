@@ -54,7 +54,7 @@ class EarthQuakeExport implements FromView, ShouldAutoSize
     	$query = $query->join('location', 'location_id', '=', 'location.id');
         $query = $query->whereBetween('magnitude', [$this->mag_min, $this->mag_max])
             ->whereBetween('creationTime', [$this->min_date, $this->max_date]);
-        if(isset($this->location_id) && $this->location!="-1"){    
+        if(isset($this->location) && $this->location!="-1"){    
             $query = $query->where('location_id', $this->location);
         }
         $query = $query->select(['earthquake.id', 'creationTime', 'name', 'magnitude', 'latitude', 'longitude'])
