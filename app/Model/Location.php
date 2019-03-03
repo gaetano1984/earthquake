@@ -14,6 +14,6 @@ class Location extends Model
 	protected $fillable = ['name'];
 
  	public function distLocation(){
-        return $this->get()->pluck('name', 'id');
+        return $this->orderBy('name', 'asc')->get()->pluck('name', 'id');
     }
 }
