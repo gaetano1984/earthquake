@@ -22,6 +22,11 @@ Route::group(['middleware' => 'auth'], function(){
 		Route::post('stats', 'QuakeController@statsFiltered')->name('quake_stats_post');
 		Route::post('export', 'QuakeController@excelExport')->name('quake_excel_export');
 	});
+	Route::group(['middleware' => 'isAdmin'], function(){
+		Route::get('manage_api', 'ApiController@index')->name('manage_api');
+		Route::get('api_create', 'ApiController@create')->name('api_create');
+		Route::post('api_store', 'ApiController@store')->name('api_store');
+	});
 });
 
 Route::group(['prefix' => 'quake'], function(){

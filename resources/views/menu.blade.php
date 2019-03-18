@@ -16,6 +16,13 @@
 					{{__('earthquake.menu.stats')}}
 				</a>
 			</li>
+			@if($user['user_type']=='admin')
+				<li class="nav-item">
+					<a class="nav-link" href="{{route('manage_api')}}">
+						Gestione API
+					</a>
+				</li>
+			@endif
 		</ul>	
 		<span class="my-2 my-lg-0" style="color:white; "><a href="{{url('user_profile')}}">Bentornato {{$user['name']}} {{$user['surname']}}</a></span>&nbsp; 
 		<form method="POST" action="{{url('logout')}}">
