@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Http\Request;
+use App\Http\Requests\ApiCreate;
 
 class ApiController extends Controller
 {
@@ -17,6 +18,13 @@ class ApiController extends Controller
 
     public function create(){
     	$user = Auth::user();
-    	return view('api.create', compact('user'));
+        $key = 'api_'.date('Ymd');
+        $secret = base64_encode(md5(date('Ymd')));
+    	return view('api.create', compact('user', 'key', 'secret'));
+    }
+
+    public function store(ApiCreate $request){
+        $data = $request->all();
+        $this->apiService($url, $key, $secret, $enabled);
     }
 }

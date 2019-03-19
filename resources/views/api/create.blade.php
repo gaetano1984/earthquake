@@ -3,6 +3,7 @@
 @section('body')
 	<div class="container" style="margin-top: 80px;">
 		<form method="POST" action="{{url('api_store')}}">
+			{{ csrf_field() }}
 			<div class="row">
 				<div class="col-md-12">
 					creazione API		
@@ -15,7 +16,7 @@
 					</label>
 				</div>
 				<div class="col-md-8">
-					<input class="form-control" name="url" value="{{$user['url']}}">
+					<input class="form-control" name="url" value="{{ old('url')}}">
 					@if($errors->has('url'))
 						<span class="validation-error">{{$errors->first('url')}}</span>
 					@endif
@@ -28,7 +29,7 @@
 					</label>
 				</div>
 				<div class="col-md-8">
-					<input class="form-control" name="key" value="{{$user['key']}}">
+					<input class="form-control" name="key" value="{{$key}}">
 					@if($errors->has('key'))
 						<span class="validation-error">{{$errors->first('key')}}</span>
 					@endif
@@ -41,7 +42,7 @@
 					</label>
 				</div>
 				<div class="col-md-8">
-					<input class="form-control" name="secret" value="{{$user['secret']}}">
+					<input class="form-control" name="secret" value="{{$secret}}">
 					@if($errors->has('secret'))
 						<span class="validation-error">{{$errors->first('secret')}}</span>
 					@endif
@@ -54,9 +55,9 @@
 					</label>
 				</div>
 				<div class="col-md-8">
-					<select class="form-control" name="enlabled">
-						<option>Enabled</option>
-						<option>Disabled</option>
+					<select class="form-control" name="enabled">
+						<option value=1>Enabled</option>
+						<option value=0>Disabled</option>
 					</select>
 					@if($errors->has('enabled'))
 						<span class="validation-error">{{$errors->first('enabled')}}</span>
