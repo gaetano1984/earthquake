@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UrlApiEnabled extends Migration
+class UrlApiEnabledAddIpAddress extends Migration
 {
     /**
      * Run the migrations.
@@ -14,12 +14,8 @@ class UrlApiEnabled extends Migration
     public function up()
     {
         //
-        Schema::create('url_api_enabled', function(Blueprint $table){
-            $table->increments('id');
-            $table->string('url')->nullable();
-            $table->string('key', 255);
-            $table->string('secret', 255);
-            $table->tinyInteger('enabled')->default(0);
+        Schema::table('url_api_enabled', function(Blueprint $table){
+            $table->string('ip_address', 255)->nullable();
         });
     }
 
@@ -31,6 +27,8 @@ class UrlApiEnabled extends Migration
     public function down()
     {
         //
-        Schema::drop('url_api_enabled');
+        Schema::table('url_api_enabled', function(Blueprint $table){
+            $table->dropColumn('ip_address');
+        });
     }
 }

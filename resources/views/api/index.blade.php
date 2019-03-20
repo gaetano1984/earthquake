@@ -23,8 +23,18 @@
 								Url
 							</th>
 							<th>
-								
+								IP
 							</th>
+							<th>
+								Key
+							</th>
+							<th>
+								Secret
+							</th>
+							<th>
+								Enabled
+							</th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -34,6 +44,31 @@
 									Non sono presenti API attive
 								</td>
 							</tr>
+						@else
+							@foreach($api as $r)
+								<tr>
+									<td>
+										{{$r->url}} 
+									</td>
+									<td>
+										{{$r->ip_address}}
+									</td>
+									<td>
+										{{$r->key}}
+									</td>
+									<td>
+										{{$r->secret}}
+									</td>
+									<td>
+										{{$r->enabled}}
+									</td>
+									<td>
+										<a href="/disable/{{$r->id}}">
+											<button class="btn btn-danger">Disable</button>
+										</a>
+									</td>
+								</tr>
+							@endforeach
 						@endif
 					</tbody>
 				</table>	

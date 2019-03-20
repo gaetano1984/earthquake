@@ -25,7 +25,8 @@ class ApiCreate extends FormRequest
     {
         return [
             //
-            'url' => 'required|ip'
+            'url' => 'required_without:ip|sometimes|nullable|url'
+            ,'ip' => 'required_without:url|sometimes|nullable|ip'
             ,'key' => 'required|max:255'
             ,'secret' => 'required|max:255'
             ,'enabled' => 'required|boolean'
@@ -34,8 +35,10 @@ class ApiCreate extends FormRequest
 
     public function messages(){
         return [
-            'url.required' => __('api.validation.url.required')
+            'url.required_without' => __('api.validation.url.required_without')
             ,'url.url' => __('api.validation.url.url')
+            ,'ip.required_without' => __('api.validation.ip.required_without')
+            ,'ip.ip' => __('api.validation.ip.ip')
             ,'key.required' => __('api.validation.key.required')
             ,'key.max' => __('api.validation.key.max')
             ,'secret.required' => __('api.validation.secret.required')
