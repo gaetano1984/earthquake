@@ -2,7 +2,7 @@
 
 @section('body')
 	<div class="container" style="margin-top: 80px;">
-		L'abilitazione di questa API si è conlusa con successo
+		Lo stato di questa API è stato cambiato con successo
 		<br>
 		<a href="{{route('manage_api')}}">torna indietro</a>
 	</div>

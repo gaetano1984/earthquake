@@ -63,9 +63,17 @@
 										{{$r->enabled}}
 									</td>
 									<td>
-										<a href="/disable/{{$r->id}}">
-											<button class="btn btn-danger">Disable</button>
-										</a>
+										<form method="POST" action="{{ route('api_en_dis') }}">
+											{{csrf_field()}}
+											<input type="hidden" name="id_api" value="{{$r->id}}">
+											@if($r->enabled)
+												<input type="submit" name="submit" class="btn btn-danger" value="Disable">
+												<input type="hidden" name="status" value=0>
+											@else
+												<input type="submit" name="submit" class="btn btn-success" value="Enable">
+												<input type="hidden" name="status" value=1>
+											@endif
+										</form>
 									</td>
 								</tr>
 							@endforeach

@@ -4,7 +4,7 @@
 	
 
 	<div class="container" style="margin-top: 80px;">
-		<form method="POST" action="{{url('api_store')}}">
+		<form method="POST" action="{{route('api_store')}}">
 			{{ csrf_field() }}
 			<div class="row">
 				<div class="col-md-12">

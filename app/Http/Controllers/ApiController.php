@@ -40,4 +40,12 @@ class ApiController extends Controller
         $this->apiService->store($url, $ip, $key, $secret, $enabled);
         return view('api.created_ok', compact('user'));
     }
+
+    public function enDisApi(Request $request){
+        $user = Auth::user();
+        $status = $request->get('status');
+        $id_api = $request->get('id_api');
+        $upd = $this->apiService->enDisApi($id_api, $status);
+        return view('api.update_ok', compact('user'));
+    }
 }

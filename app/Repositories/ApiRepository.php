@@ -26,6 +26,11 @@
 			return $this->u->paginate(10);
 		}
 
+		public function enDisApi($id_api, $status){
+			$upd = UrlApiEnabled::where('id', $id_api)->update(['enabled' => $status]);
+			return $upd;
+		}
+
 	}
 
 ?>

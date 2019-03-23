@@ -16,6 +16,10 @@
 			$list = $this->apiRepository->paginate();
 			return $list;
 		}
+		public function enDisApi($id_api, $status){
+			$upd = $this->apiRepository->enDisApi($id_api, $status);
+			return $upd;
+		}
 	}
 
  ?>
