@@ -5,6 +5,7 @@
                   'url' => [
                         'required_without' => 'La url è obbligatoria se non viene specificato l\'indirizzo IP'
                         ,'url' => 'La url deve essere nel formato url'
+                        ,'unique' => 'Questa url è già stata registrata'
                   ]
                   ,'ip' => [
                         'required_without' => 'L\'indirozzo ip è obbligatorio se non viene specificato una url'

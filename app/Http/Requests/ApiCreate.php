@@ -25,7 +25,7 @@ class ApiCreate extends FormRequest
     {
         return [
             //
-            'url' => 'required_without:ip|sometimes|nullable|url'
+            'url' => 'required_without:ip|sometimes|nullable|unique:url_api_enabled|url'
             ,'ip' => 'required_without:url|sometimes|nullable|ip'
             ,'key' => 'required|max:255'
             ,'secret' => 'required|max:255'
@@ -37,6 +37,7 @@ class ApiCreate extends FormRequest
         return [
             'url.required_without' => __('api.validation.url.required_without')
             ,'url.url' => __('api.validation.url.url')
+            ,'url.unique' => __('api.validation.url.unique')
             ,'ip.required_without' => __('api.validation.ip.required_without')
             ,'ip.ip' => __('api.validation.ip.ip')
             ,'key.required' => __('api.validation.key.required')

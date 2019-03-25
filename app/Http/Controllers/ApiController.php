@@ -25,7 +25,7 @@ class ApiController extends Controller
     public function create(){
     	$user = Auth::user();
         $key = 'api_'.date('Ymd');
-        $secret = base64_encode(md5(date('Ymd')));
+        $secret = base64_encode(md5(date('Ymd').rand(1000,2000)));
     	return view('api.create', compact('user', 'key', 'secret'));
     }
 
