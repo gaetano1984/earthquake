@@ -4,14 +4,14 @@
 	<div class="container" style="margin-top: 80px;">
 		<div class="row">
 			<div class="col-md-12 pull-right">
-			Gestione API
+			{{__('api.manage.title')}}
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-12 pull-right">
 				<div class="float-right">
 					<a href="{{route('api_create')}}">
-						<button class="btn btn-info">crea API</button>
+						<button class="btn btn-info">{{__('api.manage.btn_create_api')}}</button>
 					</a>
 				</div>
 			</div>
@@ -20,19 +20,19 @@
 					<thead>
 						<tr>
 							<th>
-								Url
+								{{__('api.manage.table.heading.url')}}
 							</th>
 							<th>
-								IP
+								{{__('api.manage.table.heading.ip')}}
 							</th>
 							<th>
-								Key
+								{{__('api.manage.table.heading.key')}}
 							</th>
 							<th>
-								Secret
+								{{__('api.manage.table.heading.secret')}}
 							</th>
 							<th>
-								Enabled
+								{{__('api.manage.table.heading.enabled')}}
 							</th>
 							<th></th>
 						</tr>
@@ -41,7 +41,7 @@
 						@if(count($api)==0)
 							<tr>
 								<td colspan=2>
-									Non sono presenti API attive
+									{{__('api.manage.table.no_api')}}
 								</td>
 							</tr>
 						@else

@@ -1,7 +1,21 @@
 <?php 
 
       return [    
-            'validation' => [
+            'manage' => [
+                  'title' => 'Gestione API'
+                  ,'btn_create_api' =>'Crea API'
+                  ,'table' => [
+                        'heading' => [
+                              'url' => 'Url'
+                              ,'ip' => 'IP'
+                              ,'key' => 'Key'
+                              ,'secret' => 'Secret'
+                              ,'enabled' => 'Enabled'
+                        ]
+                        ,'no_api' => 'Non sono presenti API attive'
+                  ]
+            ]
+            ,'validation' => [
                   'url' => [
                         'required_without' => 'La url è obbligatoria se non viene specificato l\'indirizzo IP'
                         ,'url' => 'La url deve essere nel formato url'
