@@ -43,6 +43,7 @@ class updateEarthQuake extends Command
     {
         //
         $header = ['Data', 'Luogo', 'magnitudo', 'latitudine', 'longitudine'];   
+        $header_location = ['Nome luogo'];   
         $this->info('inizio a recuperare la lista dei terremoti');
         $list = $quakeService->retrieveQuakeList();
         $this->info('lista recuperata');
@@ -55,6 +56,7 @@ class updateEarthQuake extends Command
 
         $this->info('controllo se devo salvare qualche location');
         $location_to_save = $locationService->checkLocation($to_save);
+        $table = [];
         if(count($location_to_save)>0){
             $this->info("devo creare i seguenti ".count($location_to_save)." luoghi");
             
@@ -63,12 +65,17 @@ class updateEarthQuake extends Command
 
             $bar->setRedrawFrequency(50);
             foreach ($location_to_save as $key => $location) {
+                array_push($table, [$location]);
                 $locationService->create($location);
                 $bar->advance();
             }
             $bar->finish();
             $this->info("\nluoghi salvati");    
         }   
+        $this->info("\n");
+        if(count($table)>0){
+            $this->table($header_location, $table);    
+        }
 
         $this->info("devo salvare ".count($to_save)." eventi");
 
