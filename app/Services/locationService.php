@@ -15,7 +15,6 @@
 			$res = 1;
 			$check = $this->locationRepository->search($location)->toArray();
 			if(!$check){
-				echo "creao location ".$location."\n";
 				$res = $this->locationRepository->create($location);	
 			}
 			return $res;
