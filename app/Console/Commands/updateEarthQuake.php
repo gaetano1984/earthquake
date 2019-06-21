@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use App\Services\quakeService;
-
+use Illuminate\Console\Command;
+use App\Services\locationService;
 use Symfony\Component\Console\Helper\ProgressBar;
 
 
@@ -39,7 +39,7 @@ class updateEarthQuake extends Command
      *
      * @return mixed
      */
-    public function handle(quakeService $quakeService)
+    public function handle(quakeService $quakeService, locationService $locationService)
     {
         //
         $header = ['Data', 'Luogo', 'magnitudo', 'latitudine', 'longitudine'];   
@@ -51,23 +51,42 @@ class updateEarthQuake extends Command
         if(count($to_save)==0){
             $this->error("non ci sono nuovi eventi da salvare");
             return;
-        }
+        }        
+
+        $this->info('controllo se devo salvare qualche location');
+        $location_to_save = $locationService->checkLocation($to_save);
+        if(count($location_to_save)>0){
+            $this->info("devo creare i seguenti ".count($location_to_save)." luoghi");
+            
+            $bar = $this->output->createProgressBar(count($location_to_save));
+            $bar->start();
+
+            $bar->setRedrawFrequency(50);
+            foreach ($location_to_save as $key => $location) {
+                $locationService->create($location);
+                $bar->advance();
+            }
+            $bar->finish();
+            $this->info("\nluoghi salvati");    
+        }        
+
         $this->info("devo salvare ".count($to_save)." eventi");
 
-        $this->info('salvo i terremoti trovati');
+        if(count($to_save)>0){
+            $this->info('salvo i terremoti trovati');
 
-        $bar = $this->output->createProgressBar(count($to_save));
-        $bar->start();
+            $bar = $this->output->createProgressBar(count($to_save));
+            $bar->start();
 
-        $bar->setRedrawFrequency(50);
+            $bar->setRedrawFrequency(50);
 
-        $table = [];
-        foreach ($to_save as $key => $quake) {
-            array_push($table, $quakeService->saveQuake($quake));
-            $bar->advance();
+            $table = [];
+            foreach ($to_save as $key => $quake) {
+                array_push($table, $quakeService->saveQuake($quake));
+                $bar->advance();
+            }
+            $bar->finish();
         }
-        $bar->finish();
-        
         //$this->table($header, $table);
         $this->info("\nprocedura terminata");
     }    

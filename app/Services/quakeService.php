@@ -75,9 +75,8 @@
 			$idevent = trim($quake['preferredOriginID']);
         	$time = $quake['creationInfo']['creationTime'];
         	$location = $quake['description']['text'];
-        	$new_location = $location;
-
-			$new_location = $this->checkLocation($location);
+        	$new_location = $this->getLocation($location);
+			$new_location = $this->locationService->search($new_location);
 
 			$magnitude = $quake['magnitude']['mag']['value'];
         	$latitude = trim($quake['origin']['latitude']['value']);
@@ -89,18 +88,16 @@
         	return $table_row;
 		}
 
-		public function checkLocation($location){
-			$check = preg_match('/[0-9]{1,} km [A-Z]{1,2}/', $location, $match);
-			$new_location = $location;
+		public function getLocation($l){
+			$check = preg_match('/[0-9]{1,} km [A-Z]{1,2}/', $l, $match);
+			$new_location = "";
 			if(count($match)>0){
-				$new_location = str_replace($match[0], '', $location);
-        		$this->locationService->create($new_location);	
+				$new_location = str_replace($match[0], '', $l);
 			}
 			else{
-				$this->locationService->create($new_location);		
+				$new_location = $l;
 			}
-
-			$new_location = $this->locationService->search($new_location);
+			$new_location = trim($new_location);
 			return $new_location;
 		}
 

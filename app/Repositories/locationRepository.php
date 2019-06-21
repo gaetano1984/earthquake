@@ -14,7 +14,7 @@
 			$l->name = $location;
 			$l->save();
 		}
-		public function search($location){
+		public function search($location){	
 			$l = new Location();
 			$l = $l->where('name', $location)->get();
 			return $l;
