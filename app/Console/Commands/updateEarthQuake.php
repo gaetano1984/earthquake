@@ -68,10 +68,11 @@ class updateEarthQuake extends Command
             }
             $bar->finish();
             $this->info("\nluoghi salvati");    
-        }        
+        }   
 
         $this->info("devo salvare ".count($to_save)." eventi");
 
+        $table = [];
         if(count($to_save)>0){
             $this->info('salvo i terremoti trovati');
 
@@ -80,14 +81,16 @@ class updateEarthQuake extends Command
 
             $bar->setRedrawFrequency(50);
 
-            $table = [];
             foreach ($to_save as $key => $quake) {
                 array_push($table, $quakeService->saveQuake($quake));
                 $bar->advance();
             }
             $bar->finish();
         }
-        //$this->table($header, $table);
+        $this->info("\n");
+        if(count($table)>0){
+            $this->table($header, $table);    
+        }        
         $this->info("\nprocedura terminata");
     }    
 }
